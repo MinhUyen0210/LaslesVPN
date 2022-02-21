@@ -72,3 +72,15 @@ h6 {
   color: $heading-color;
   // font-weight: bold;
 }
+
+.heading {
+  font-weight: 500;
+  font-size: 35px;
+  line-height: calc(50 / 35);
+  margin-bottom: 20px;
+  text-transform: capitalize;
+}
+
+.text{
+  line-height: calc(30/16);
+}
