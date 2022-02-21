@@ -99,7 +99,7 @@ body {
 }
 
 .boxed {
-  min-width: 555px;
+  max-width: 555px;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -321,6 +321,19 @@ h6 {
 }
 .network-image {
   margin-bottom: 36px;
+}
+
+.logo {
+  margin: 0 160px 50px;
+}
+
+.customer .boxed {
+  margin-bottom: 60px;
+}
+.customer .heading {
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /*# sourceMappingURL=app.css.map */
