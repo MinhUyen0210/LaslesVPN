@@ -464,4 +464,23 @@ h6 {
   display: inherit;
 }
 
+.subcribe {
+  z-index: 2;
+  margin-bottom: 65px;
+}
+.subcribe-wrapper {
+  width: 1140px;
+  height: 230px;
+  padding-left: 70px;
+  padding-right: 70px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 42px 114px 0 rgba(13, 16, 37, 0.064);
+}
+.subcribe-text {
+  max-width: 410px;
+}
+
 /*# sourceMappingURL=app.css.map */
