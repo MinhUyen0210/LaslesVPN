@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test</title>
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+    /> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <style>
+    /* .fa-arrow-right {
+      color: red;
+    }
+    .fa-arrow-left {
+      color: yellowgreen;
+      font-style: 30px;
+    } */
+
+    .arrow-button {
+      display: flex;
+      justify-content: center;
+    }
+
+    .arrow {
+      height: 60px;
+      width: 60px;
+      border-radius: 100rem;
+      border: 1px solid red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .arrow > .next {
+      transform: scaleX(-1);
+    }
+
+    .arrow > .prev-reverse,
+    .arrow > .next-reverse {
+      display: none;
+    }
+
+    .arrow:hover {
+      background-color: red;
+      cursor: pointer;
+    }
+
+    .arrow:hover > .prev,
+    .arrow:hover > .next {
+      display: none;
+    }
+
+    .arrow:hover > .prev-reverse {
+      display: inherit;
+
+      transform: scaleX(-1);
+    }
+
+    .arrow:hover > .next-reverse {
+      display: inherit;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    .list {
+      border: 1px solid red;
+      background-color: white;
+      margin-left: 150px;
+      max-width: 1300px;
+      overflow-y: hidden;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+    .item {
+      margin: 50px;
+      height: 230px;
+      min-width: 400px;
+      border: 5px solid gray;
+    }
+
+    .item:hover,
+    .is-active {
+      border: 5px solid red;
+      cursor: pointer;
+    }
+
+    .wrapper {
+      margin-left: 150px;
+      width: 1000px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .slider {
+      display: flex;
+      justify-content: space-between;
+      gap: 0 15px;
+    }
+
+    .dot {
+      height: 15px;
+      width: 15px;
+      background-color: gray;
+      border-radius: 100rem;
+      cursor: pointer;
+    }
+
+    .slider-bar {
+      height: 15px;
+      width: 45px;
+      border-radius: 100rem;
+      background-color: red;
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <!-- <i class="fa-solid fa-arrow-left "></i>
+    <i class="fa-solid fa-arrow-right fa-2x"></i> -->
+    <!-- <div class="arrow">
+      <img class="prev" src="./images/arrow-back.svg" alt="" />
+      <img class="prev-reverse" src="./images/arrow-next.svg" alt="" />
+    </div>
+    <div class="arrow">
+      <img class="next" src="./images/arrow-back.svg" alt="" />
+      <img class="next-reverse" src="./images/arrow-next.svg" alt="" />
+    </div> -->
+
+    <div class="list"></div>
+    <div class="wrapper">
+      <div class="slider"></div>
+      <div class="arrow-button">
+        <div class="arrow arrow-prev">
+          <img class="prev" src="./images/arrow-back.svg" alt="" />
+          <img class="prev-reverse" src="./images/arrow-next.svg" alt="" />
+        </div>
+        <div class="arrow arrow-next">
+          <img class="next" src="./images/arrow-back.svg" alt="" />
+          <img class="next-reverse" src="./images/arrow-next.svg" alt="" />
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    var data = [1, 2, 3, 4];
+
+    let appendDot = "",
+      appentItem = "";
+    for (let i = 0; i < data.length; i++) {
+      if (i == 0) {
+        appendDot += `<div class="slider-bar dot dot${i}"></div>`;
+        appentItem += `<div class="item is-active item${i}"></div>`;
+      } else {
+        appendDot += `<div class="dot dot${i}"></div>`;
+        appentItem += `<div class="item item${i}"></div>`;
+      }
+    }
+    $(".slider").append(appendDot);
+    $(".list").append(appentItem);
+
+    let items = document.getElementsByClassName("dot");
+    for (let i = 0; i < items.length; i++) {
+      items[i].addEventListener("click", itemSelected);
+    }
+
+    function itemSelected() {
+      // dot
+      document
+        .getElementsByClassName("slider-bar")[0]
+        .classList.remove("slider-bar");
+      this.classList.add("slider-bar");
+
+      // get index
+      for (let i = 0; i < this.classList.length; i++) {
+        if (this.classList[i].length > 3 && this.classList[i].includes("dot")) {
+          j = +this.classList[i][this.classList[i].length - 1];
+        }
+      }
+
+      // item
+      document
+        .getElementsByClassName("is-active")[0]
+        .classList.remove("is-active");
+      document.getElementsByClassName(`item${j}`)[0].classList.add("is-active");
+    }
+
+    let image_items = document.getElementsByClassName("item");
+
+    // change htmlCollection to array
+    // [].slice.call(image_items).forEach((element) => {
+    //   element.addEventListener("click", imageItemSelected);
+    // });
+
+    // but I prefer this tradition way with for loop (simple)
+    for (let i = 0; i < image_items.length; i++) {
+      image_items[i].addEventListener("click", imageItemSelected);
+    }
+
+    function imageItemSelected() {
+      // item
+      document
+        .getElementsByClassName("is-active")[0]
+        .classList.remove("is-active");
+      this.classList.add("is-active");
+
+      for (let i = 0; i < this.classList.length; i++) {
+        if (
+          this.classList[i].length > 3 &&
+          this.classList[i].includes("item")
+        ) {
+          j = +this.classList[i][this.classList[i].length - 1];
+        }
+      }
+
+      // dot
+      document
+        .getElementsByClassName("slider-bar")[0]
+        .classList.remove("slider-bar");
+      document.getElementsByClassName(`dot${j}`)[0].classList.add("slider-bar");
+    }
+
+    // add click event(Prev) for button Prev
+    document
+      .getElementsByClassName("arrow-prev")[0]
+      .addEventListener("click", Prev);
+
+    function Prev() {
+      // get current selected item
+      let itemActive = document.getElementsByClassName("slider-bar");
+      for (let i = 0; i < itemActive[0].classList.length; i++) {
+        if (
+          itemActive[0].classList[i].length > 3 &&
+          itemActive[0].classList[i].includes("dot")
+        ) {
+          j =
+            +itemActive[0].classList[i][itemActive[0].classList[i].length - 1];
+        }
+      }
+
+      if (j > 0) {
+        // dot
+        itemActive[0].classList.remove("slider-bar");
+        document
+          .getElementsByClassName(`dot${j - 1}`)[0]
+          .classList.add("slider-bar");
+
+        // item
+        document
+          .getElementsByClassName("is-active")[0]
+          .classList.remove("is-active");
+        document
+          .getElementsByClassName(`item${j - 1}`)[0]
+          .classList.add("is-active");
+      }
+    }
+
+    // add click event(Next) for button Next
+    document
+      .getElementsByClassName("arrow-next")[0]
+      .addEventListener("click", Next);
+
+    function Next() {
+      // get current selected item
+      let itemActive = document.getElementsByClassName("slider-bar");
+      for (let i = 0; i < itemActive[0].classList.length; i++) {
+        if (
+          itemActive[0].classList[i].length > 3 &&
+          itemActive[0].classList[i].includes("dot")
+        ) {
+          j =
+            +itemActive[0].classList[i][itemActive[0].classList[i].length - 1];
+        }
+      }
+      if (j < 3) {
+        // dot
+        itemActive[0].classList.remove("slider-bar");
+        document
+          .getElementsByClassName(`dot${j + 1}`)[0]
+          .classList.add("slider-bar");
+
+        // item
+        document
+          .getElementsByClassName("is-active")[0]
+          .classList.remove("is-active");
+        document
+          .getElementsByClassName(`item${j + 1}`)[0]
+          .classList.add("is-active");
+      }
+    }
+
+    // var x = document.querySelectorAll(".list > div");
+    // for (let i = 0; i <= x.length; i++) {
+    //   x[i].style["background-color"] =
+    //     "#" + Math.floor(Math.random() * 16777215).toString(16);
+    // }
+  </script>
+</html>
